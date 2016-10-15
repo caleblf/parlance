@@ -6,6 +6,8 @@
 </head>
 
 <body>
+
+<div id="content">
 <h1>Introduction</h1>
 <p>
 The Parlance Language is an open-source, C-based language designed for accessibility. 
@@ -15,24 +17,56 @@ natural language scheme focused on readability and ease of parsing. In its curre
 Parlance is converted to standard ANSI C code by the C Preprocessor
 </p>
 <h1>Current Features</h1>
-<ul>
+<ul id="features">
 
 </ul>
 <h1>Comparison to C</h1>
 
-<div>
+<div id="examples">
+<h2>C Code:</h2>
 <p>
-<pre class="code">
-	#include <stdio.h>
+<pre>
+<code class="codeblock">#include &lt;stdio.h&gt;
 
-	int main()
-	{
-        printf("Hello, World!\n");
-        return 0;
-	}
+int main() 
+{
+	printf(&quot;Hello, World!\n&quot;);
+	return 0;	
+}
+</code>
 </pre>
+</p>
+
+<h2>Parlance Code:</h2>
+<p>
+<pre>
+<code class="codeblock">CPP INCLUDE &quot;&lt;stdio.h&gt;&quot;
+
+DECLARE FUNCTION &quot;main&quot; TYPE &quot;int&quot;	
+BEGIN
+	CALL &quot;printf&quot;
+	PARAM LITERAL STRING &quot;Hello world!&quot; LITERAL END
+	CALL END
+SCOPE END
+</code>
+</pre>	
 </p>
 </div>
 <h1>Meet the Authors</h1>
-</body>
+<h2>Caleb Lucas-Foley</h2>
+<p class="bio">
+	Caleb is a dinosaur. 
+</p>
+
+<h2>Harrison Kaiser</h2>
+<p class="bio">
+	Harrison is a meerkat. 
+</p>
+
+<h2>Chris Phifer</h2>
+<p class="bio">
+	Chris is a hedgehog. 
+</p>
+</div>
+
 </html>

@@ -1,0 +1,35 @@
+body {
+	background-color: #FFFCDC;
+}
+
+
+
+.codeblock {
+	display: inline-block;
+	background-color: LightGray;
+	padding: 15px 20px;
+	border-radius: 5px;
+	margin: 0;
+}
+
+#content {
+	width: 100%;
+	max-width: 720px;
+	margin: auto;
+}
+
+#features {
+
+}
+
+#examples {
+
+}
+
+.bio {
+
+}
+
+footer {
+
+}
