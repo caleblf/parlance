@@ -38,9 +38,13 @@ def build_end(words):
 def build_declaration(words):
     pass
 
+def build_expression(words):
+    pass
+
+def build_scope(words):
+    pass
+
 statements = {
-    "CALL": build_call,
-    "VARIABLE": build_variable,
     "RETURN": build_return,
     "CPP": build_cpp,
     "IF": build_if,
@@ -48,6 +52,57 @@ statements = {
     "LOOP": build_loop,
     "DECLARE": build_declaration,
 }
+
+terms = {
+    "VARIABLE": build_variable,
+    "LITERAL": build_literal,
+    "CALL": build_call
+}
+
+operators = {
+    "PREINCREMENT": "++",
+    "NEGATIVE": "-",
+    "BITWISE NOT": "~",
+    "MODULO": "%",
+    "GETS": "=",
+    "AND": "+",
+    "EQUALS": "==",
+    "LESSTHAN": "<"
+}
+
+def build_scope(words):
+    output = ""
+    command = words.pop(0);
+    while command != "END":
+        if command in statements:
+            output += statements[command](words) + "\n"
+        else:
+            words.insert(0, command)
+            output += build_expression(words)
+            if words.pop(0) != "END" or words.pop(0) != "STATEMENT":
+                exit(1)
+            output += ";\n"
+    if len(words) == 0:
+        return output
+    elif words.pop(0) == "SCOPE":
+        return output + "\n}\n"
+    else:
+        exit(1)
+
+def build_expression(words):
+    output = ""
+    command = words.pop(0)
+    # the expression is over when we read in a foreign command
+    while True:
+        if command in terms:
+            output += " " + terms[command](words)
+        elif command in operators:
+            output += " " + operators[command]
+        else:
+            break
+        command = words.pop(0)
+    words.insert(0, command)
+    return output
 
 def build_variable(words):
     return words.pop(0)
@@ -63,15 +118,14 @@ def build_return(words):
 def build_cpp(words):
     output = "#"
     command = words.pop(0)
-    if (command == "DEFINE") {
-        output += "define " + words.pop(0)
-    } elif (command == "INCLUDES") {
-        output += "include " + words.pop(0)
-    } elif (command == "IFNDEF") {
-        output += "ifndef " + words.pop(0)
-    } elif (command == "ENDIF") {
-        output += "ifndef"
-    }
+    if command == "DEFINE"
+        output += "define " + words.pop(0) + "\n"
+    elif command == "INCLUDES"
+        output += "include " + words.pop(0) + "\n"
+    elif command == "IFNDEF"
+        output += "ifndef " + words.pop(0) + "\n"
+    elif command == "ENDIF"
+        output += "endif\n"
     return output
 
 def build_if():
@@ -100,7 +154,7 @@ def build_loop(words):
     cycle = ""
     word = words.pop(0)
     while (word != "BEGIN"):
-        # Only want one of each, but don't check that (yet)
+        # Only want one of each, but we don't check that (yet)
         if word == "FIRST":
             first = build_expression(words)
         elif word == "CONDITION":
@@ -169,7 +223,6 @@ def build_call(words):
             args.append(expression(words))
         elif word == "END":
             return output + ",".join(args) + ")"
-
         else:
             exit(1)
         word = words.pop(0)
@@ -181,6 +234,8 @@ if not path.exists(argv[1]):
     exit("Error: File " + argv[1] + " not found.")
 
 parlance_code = open(argv[1], 'r')
+
+# We assume that string literals are all one word with quotes around them
 code_words = parlance_code.read().split()
 
-
+print build_scope(code_words)
