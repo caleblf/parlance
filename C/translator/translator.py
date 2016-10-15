@@ -36,7 +36,7 @@ def build_end(words):
     pass
 
 def build_declaration(words):
-    return "foo"
+    pass
 
 def build_expression(words):
     pass
