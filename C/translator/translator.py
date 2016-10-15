@@ -36,7 +36,7 @@ def build_end(words):
     pass
 
 def build_declaration(words):
-    pass
+    return "foo"
 
 def build_expression(words):
     pass
@@ -47,50 +47,20 @@ def build_literal(words):
 def build_scope(words):
     pass
 
-statements = {
-    "RETURN": build_return,
-    "CPP": build_cpp,
-    "IF": build_if,
-    "ELSE": build_else,
-    "LOOP": build_loop,
-    "DECLARE": build_declaration,
-}
+terms = {}
+statements = {}
+operators = {}
 
-terms = {
-    "VARIABLE": build_variable,
-    "LITERAL": build_literal,
-    "CALL": build_call
-}
-
-operators = {
-    "PREINCREMENT": "++",
-    "NEGATIVE": "-",
-    "BITWISE NOT": "~",
-    "MODULO": "%",
-    "GETS": "=",
-    "AND": "+",
-    "EQUALS": "==",
-    "LESSTHAN": "<"
-}
-
-def build_scope(words):
-    output = ""
-    command = words.pop(0);
-    while command != "END":
-        if command in statements:
-            output += statements[command](words) + "\n"
-        else:
-            words.insert(0, command)
-            output += build_expression(words)
-            if words.pop(0) != "END" or words.pop(0) != "STATEMENT":
-                exit(1)
-            output += ";\n"
-    if len(words) == 0:
-        return output
-    elif words.pop(0) == "SCOPE":
-        return output + "\n}\n"
-    else:
+def build_literal(words):
+    if words.pop(0) not in ("STRING", "INT"):
         exit(1)
+    literal = words.pop(0)
+    if words.pop(0) != "END" or words.pop(0) != "LITERAL":
+        exit(1)
+    return " "+literal + " "
+
+def build_variable(words):
+    return words.pop(0)
 
 def build_expression(words):
     output = ""
@@ -106,17 +76,20 @@ def build_expression(words):
         command = words.pop(0)
     words.insert(0, command)
     return output
-
-def build_literal(words):
-    if words.pop(0) not in ("STRING", "INT"):
-        exit(1)
-    literal = words.pop(0)
-    if(!(words.pop(0) == "END" && words.pop(0) == "LITERAL")):
-        exit(1)
-    return " "+literal + " "
-
-def build_variable(words):
-    return words.pop(0)
+    
+def build_call(words):
+    """Builds a C function call"""
+    output = words.pop(0) + "("
+    word = words.pop(0)
+    args = []
+    while True:
+        if word == "ARG":
+            args.append(build_expression(words))
+        elif word == "END":
+            return output + ", ".join(args) + ")"
+        else:
+            exit(1)
+        word = words.pop(0)
 
 def build_return(words):
     output = "return " + build_expression(words)
@@ -129,22 +102,23 @@ def build_return(words):
 def build_cpp(words):
     output = "#"
     command = words.pop(0)
-    if command == "DEFINE"
+    if command == "DEFINE":
         output += "define " + words.pop(0) + "\n"
-    elif command == "INCLUDES"
+    elif command == "INCLUDES":
         output += "include " + words.pop(0) + "\n"
-    elif command == "IFNDEF"
+    elif command == "IFNDEF":
         output += "ifndef " + words.pop(0) + "\n"
-    elif command == "ENDIF"
+    elif command == "ENDIF":
         output += "endif\n"
     return output
 
-def build_if():
-    output = "if " + build_expression(words)
+
+def build_if(words):
+    output = "if (" + build_expression(words) + ")"
     if words.pop(0) != "BEGIN":
         exit(1)
     else:
-        return output + "{\n" + build_scope(words)
+        return output + " {\n" + build_scope(words)
 
 def build_else(words):
     output = "else "
@@ -193,15 +167,16 @@ def build_declaration(words):
             if word == "PARAM":
                 pname = words.pop(0)
                 word = words.pop(0)
-                type_ = ""
+                ptype = ""
                 if word == "TYPE":
-                    type_ = words.pop(0)
+                    ptype = words.pop(0)
                 else:
                     exit(1)
-                params.append(type_ + " " + pname)
+                params.append(ptype + " " + pname)
+                word = words.pop(0)
             else:
                 exit(1)
-        output += "%s %s(%s)" % (ftype, fname, ",".join(params))
+        output += "%s %s(%s)" % (ftype, fname, ", ".join(params))
         if word == "END":
             if words.pop(0) != "STATEMENT":
                 exit(1)
@@ -218,26 +193,67 @@ def build_declaration(words):
         word = words.pop(0)
         output += "%s %s" % (vtype, vname)
         if word == "GETS":
-            return output + " = " + build_expression(words) + ";"
-        elif words == "END":
+            output += " = " + build_expression(words)
+            if words.pop(0) != "END" or words.pop(0) != "STATEMENT":
+                exit(1);
+            return output + ";"
+        elif word == "END":
             if words.pop(0) != "STATEMENT":
                 exit(1)
             return output + ";"
+    else:
+        exit(1)
 
-def build_call(words):
-    """Builds a C function call"""
-    output = words.pop(0) + "("
-    word = words.pop(0)
-    args = []
-    while True:
-        if word == "ARG":
-            args.append(expression(words))
-        elif word == "END":
-            return output + ",".join(args) + ")"
+
+def build_scope(words):
+    output = ""
+    command = words.pop(0);
+    while command != "END":
+        if command in statements:
+            output += statements[command](words) + "\n"
+
         else:
-            exit(1)
-        word = words.pop(0)
+            words.insert(0, command)
+            output += build_expression(words)
+            if words.pop(0) != "END" or words.pop(0) != "STATEMENT":
+                exit(1)
+            output += ";\n"
+        command = words.pop(0)
+    if len(words) == 0:
+        return output
+    elif words.pop(0) == "SCOPE":
+        return output + "\n}\n"
+    else:
+        exit(1)
     
+
+statements = {
+    "RETURN": build_return,
+    "CPP": build_cpp,
+    "IF": build_if,
+    "ELSE": build_else,
+    "LOOP": build_loop,
+    "DECLARE": build_declaration,
+}
+
+terms = {
+    "VARIABLE": build_variable,
+    "LITERAL": build_literal,
+    "CALL": build_call
+}
+
+operators = {
+    "PREINCREMENT": "++",
+    "NEGATIVE": "-",
+    "BITWISE NOT": "~",
+    "MODULO": "%",
+    "GETS": "=",
+    "AND": "+",
+    "EQUALS": "==",
+    "LESSTHAN": "<"
+}
+
+
 if len(argv) < 2:
     exit("Usage: " + argv[0] + " <filename>")
 

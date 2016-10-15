@@ -1,5 +1,7 @@
 DECLARE FUNCTION func TYPE int
-ARG arg1 TYPE int ARG arg2 TYPE int
+PARAM arg1 TYPE int PARAM arg2 TYPE int
 BEGIN
     
 END SCOPE
+
+END

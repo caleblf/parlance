@@ -1,9 +1,11 @@
-IF true
+IF VARIABLE true
 BEGIN
 
 
 END SCOPE
-ELSE IF false
+ELSE IF VARIABLE flase
 BEGIN
 
 END SCOPE
+
+END
