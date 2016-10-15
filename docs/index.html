@@ -10,18 +10,25 @@
 <body>
 <header>
 <h1>Parlance - Accessible Programming</h1>
+<p>Readable. Speakable. Powerful.</p>
 </header>
 
 <div id="content">
+<h2>Purpose</h2>
+<p>Right now, there is a severe lack of truly accessible options for programmers with
+physical disabilities. If you can't type, you basically can't code--but we hope to
+change that.</p>
+<p>Modern and old-fashioned languages alike tend to be very symbol-heavy. Even languages
+that seem very close to natural language (like Python) often rely on strict formatting
+rules to function, which isn't feasible for people with screen readers, or anyone who
+operates computers with speech-recognition tools.</p>
 <h2>Overview</h2>
-<p>
-The Parlance Language is an open-source, C-based language designed for accessibility. 
-The language is defined to be as close to natural language as possible, in order that 
-it can be easily recognized by speech-to-text applications. It uses an easy-to-learn, 
-natural language scheme focused on readability and speakability. In its current form,
-Parlance is directly converted to standard ANSI C code, so users who know C can easily
-begin using Parlance.
-</p>
+<p>The Parlance language is an open-source, C-based language designed for accessibility. 
+Parlance's syntax is as close to natural language as possible, so that it can be easily
+recognized by speech-to-text applications. It uses an easy-to-learn set of dictionary
+words to build a true, powerful programming language focused on readability and
+speakability. Parlance is directly converted to standard ANSI C code, so users who know
+C can easily begin using Parlance.</p>
 <h2>Current Features</h2>
 <ul>
   <li>Turing complete</li>
@@ -56,7 +63,7 @@ END SCOPE
 END
 </code></pre></p>
 
-<h3> FizzBuzz in Parlance:</h3>
+<h2> FizzBuzz in Parlance:</h2>
 <p><pre><code class="code-block">CPP INCLUDE <span class="c-literal">&lt;stdio.h&gt;</span>
 
 DECLARE FUNCTION <span class="c-type">main</span> TYPE <span class="c-type">int</span>
