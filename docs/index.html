@@ -66,7 +66,8 @@ LOOP FIRST VARIABLE <span class="c-type">i</span> GETS LITERAL INT <span class="
 CONDITION VARIABLE <span class="c-type">i</span> LESSTHAN LITERAL INT <span class="c-literal">101</span> END LITERAL
 CYCLE PREINCREMENT VARIABLE <span class="c-type">i</span>
 BEGIN
-	IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL AND VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
+	IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL AND 
+	VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
 		BEGIN
         	CALL <span class="c-type">printf</span> 
         		ARG LITERAL STRING <span class="c-literal">"FizzBuzz"</span> END LITERAL 
