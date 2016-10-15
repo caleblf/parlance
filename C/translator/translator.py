@@ -36,7 +36,7 @@ def build_end(words):
     pass
 
 def build_declaration(words):
-    return "foo"
+    pass
 
 def build_expression(words):
     pass
@@ -52,7 +52,7 @@ statements = {}
 operators = {}
 
 def build_literal(words):
-    if words.pop(0) not in ("STRING", "INT"):
+    if words.pop(0) not in ("STRING", "INT", "INTEGER"):
         exit(1)
     literal = words.pop(0)
     if words.pop(0) != "END" or words.pop(0) != "LITERAL":
@@ -85,7 +85,7 @@ def build_call(words):
     while True:
         if word == "ARG":
             args.append(build_expression(words))
-        elif word == "END":
+        elif word == "END" and words.pop(0) == "CALL":
             return output + ", ".join(args) + ")"
         else:
             exit(1)
@@ -104,7 +104,7 @@ def build_cpp(words):
     command = words.pop(0)
     if command == "DEFINE":
         output += "define " + words.pop(0) + "\n"
-    elif command == "INCLUDES":
+    elif command == "INCLUDE":
         output += "include " + words.pop(0) + "\n"
     elif command == "IFNDEF":
         output += "ifndef " + words.pop(0) + "\n"
@@ -132,7 +132,6 @@ def build_else(words):
         exit(1)
 
 def build_loop(words):
-    output = ""
     word = ""
     first = ""
     condition = ""
@@ -149,7 +148,8 @@ def build_loop(words):
         else:
             exit(1)
         word = words.pop(0)
-    output = "for (%s; %s; %s) {\n" % (first, condition, cycle) + build_scope(words)
+    return "for (%s; %s; %s) {\n" % (first, condition, cycle) + build_scope(words)
+
 
 def build_declaration(words):
     output = ""
@@ -211,7 +211,6 @@ def build_scope(words):
     while command != "END":
         if command in statements:
             output += statements[command](words) + "\n"
-
         else:
             words.insert(0, command)
             output += build_expression(words)
@@ -248,7 +247,7 @@ operators = {
     "BITWISE NOT": "~",
     "MODULO": "%",
     "GETS": "=",
-    "AND": "+",
+    "AND": "&&",
     "EQUALS": "==",
     "LESSTHAN": "<"
 }
