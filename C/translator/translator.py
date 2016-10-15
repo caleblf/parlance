@@ -41,6 +41,9 @@ def build_declaration(words):
 def build_expression(words):
     pass
 
+def build_literal(words):
+    pass
+
 def build_scope(words):
     pass
 
@@ -103,6 +106,14 @@ def build_expression(words):
         command = words.pop(0)
     words.insert(0, command)
     return output
+
+def build_literal(words):
+    if words.pop(0) not in ("STRING", "INT"):
+        exit(1)
+    literal = words.pop(0)
+    if(!(words.pop(0) == "END" && words.pop(0) == "LITERAL")):
+        exit(1)
+    return " "+literal + " "
 
 def build_variable(words):
     return words.pop(0)
