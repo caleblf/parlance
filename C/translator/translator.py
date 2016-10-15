@@ -214,7 +214,14 @@ operators = {
     "GETS": "=",
     "AND": "&&",
     "EQUALS": "==",
-    "LESSTHAN": "<"
+    "LESSTHAN": "<",
+    "GREATERTHAN": ">",
+    "MINUS": "-",
+    "OR": "||",
+    "PLUS": "+",
+    "DIVIDE": "/",
+    "TIMES": "*",
+    "DEREFERENCE": "*",
 }
 
 
