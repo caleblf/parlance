@@ -55,11 +55,60 @@ BEGIN
 END SCOPE
 END
 </code></pre></p>
+
+<h3> FizzBuzz in Parlance:</h3>
+<p><pre><code class="code-block">CPP INCLUDE <span class="c-literal">&lt;stdio.h&gt;</span>
+
+DECLARE FUNCTION <span class="c-type">main</span> TYPE <span class="c-type">int</span>
+BEGIN
+DECLARE VARIABLE <span class="c-type">i</span> TYPE <span class="c-type">int</span> END STATEMENT 
+LOOP 
+	FIRST VARIABLE <span class="c-type">i</span> GETS LITERAL INT <span class="c-literal">1</span> END LITERAL
+	CONDITION VARIABLE <span class="c-type">i</span> LESSTHAN LITERAL INT <span class="c-literal">101</span> END LITERAL
+	CYCLE PREINCREMENT VARIABLE <span class="c-type">i</span>
+BEGIN
+	IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL AND 
+	   VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
+	BEGIN
+       	CALL <span class="c-type">printf</span> 
+       		ARG LITERAL STRING <span class="c-literal">"FizzBuzz"</span> END LITERAL 
+       	END CALL END STATEMENT
+	END SCOPE
+
+	ELSE IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
+	BEGIN
+       	CALL <span class="c-type">printf</span> 
+       		ARG LITERAL STRING <span class="c-literal">"Fizz"</span> END LITERAL 
+       	END CALL END STATEMENT
+	END SCOPE
+
+	ELSE IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
+	BEGIN
+       	CALL <span class="c-type">printf</span> 
+       		ARG LITERAL STRING <span class="c-literal">"Buzz"</span> END LITERAL 
+       	END CALL END STATEMENT
+	END SCOPE
+
+	ELSE
+	BEGIN
+       	CALL <span class="c-type">printf</span> 
+       		ARG LITERAL STRING <span class="c-literal">"%d"</span> END LITERAL ARG VARIABLE <span class="c-type">i</span> 
+       	END CALL END STATEMENT
+	END SCOPE
+
+	CALL <span class="c-type">printf</span> ARG LITERAL STRING <span class="c-literal">"\n"</span> END LITERAL END CALL END STATEMENT
+END SCOPE
+
+END SCOPE
+
+END
+</code></pre></p>
+
 <h2>Meet the Authors</h2>
 <h3>Caleb Lucas-Foley</h3>
 <p class="bio">
   Caleb is a sophomore at Tufts University School of Engineering studying Computer Science and
-  mathematics. His interests include lo-w and high-level programming and design, especially
+  mathematics. His interests include low- and high-level programming and design, especially
   object-oriented programming. He enjoys pizza, pineapple, pineapple on pizza, and long walks as
   far from the beach as possible.
 </p>

@@ -1,3 +1,0 @@
-int func(int arg1, int arg2) {
-    
-}

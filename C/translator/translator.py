@@ -11,52 +11,16 @@
 from sys import argv, exit
 from os import path
 
-def build_call(words):
-    pass
-
-def build_variable(words):
-    pass
-
-def build_return(words):
-    pass
-
-def build_cpp(words):
-    pass
-
-def build_if(words):
-    pass
-
-def build_else(words):
-    pass
-
-def build_loop(words):
-    pass
-
-def build_end(words):
-    pass
-
-def build_declaration(words):
-    pass
-
-def build_expression(words):
-    pass
-
-def build_literal(words):
-    pass
-
-def build_scope(words):
-    pass
-
 terms = {}
 statements = {}
 operators = {}
 
 def build_literal(words):
     if words.pop(0) not in ("STRING", "INT", "INTEGER"):
-        exit(1)
+        exit("Got a type not supported.")
     literal = words.pop(0)
     if words.pop(0) != "END" or words.pop(0) != "LITERAL":
-        exit(1)
+        exit("Expected 'END LITERAL'.")
     return " "+literal + " "
 
 def build_variable(words):
@@ -88,7 +52,8 @@ def build_call(words):
         elif word == "END" and words.pop(0) == "CALL":
             return output + ", ".join(args) + ")"
         else:
-            exit(1)
+            
+            exit("Expected 'ARG' or 'END'.")
         word = words.pop(0)
 
 def build_return(words):
@@ -96,7 +61,7 @@ def build_return(words):
     if words.pop(0) == "END" and words.pop(0) == "STATEMENT":
         output += ";"
     else:
-        exit(1)
+        exit("Expected 'END STATEMENT'.")
     return output
 
 def build_cpp(words):
@@ -116,7 +81,7 @@ def build_cpp(words):
 def build_if(words):
     output = "if (" + build_expression(words) + ")"
     if words.pop(0) != "BEGIN":
-        exit(1)
+        exit("Expected 'BEGIN'.")
     else:
         return output + " {\n" + build_scope(words)
 
@@ -129,7 +94,7 @@ def build_else(words):
     elif word == "BEGIN":
         return output + "{\n" + build_scope(words)
     else:
-        exit(1)
+        exit("Expected 'IF' or 'BEGIN'.")
 
 def build_loop(words):
     word = ""
@@ -146,7 +111,7 @@ def build_loop(words):
         elif word == "CYCLE":
             cycle = build_expression(words)
         else:
-            exit(1)
+            exit("Unexpected keyword (Wanted 'FIRST', 'CONDITION', or 'CYCLE'.")
         word = words.pop(0)
     return "for (%s; %s; %s) {\n" % (first, condition, cycle) + build_scope(words)
 
@@ -160,7 +125,7 @@ def build_declaration(words):
         if words.pop(0) == "TYPE":
             ftype = words.pop(0)
         else:
-            exit(1)
+            exit("Expected 'TYPE'.")
         params = []
         word = words.pop(0)
         while (word != "BEGIN" and word != "END"):
@@ -171,15 +136,15 @@ def build_declaration(words):
                 if word == "TYPE":
                     ptype = words.pop(0)
                 else:
-                    exit(1)
+                    exit("Expected 'TYPE'.")
                 params.append(ptype + " " + pname)
                 word = words.pop(0)
             else:
-                exit(1)
+                exit("Expected 'PARAM'.")
         output += "%s %s(%s)" % (ftype, fname, ", ".join(params))
         if word == "END":
             if words.pop(0) != "STATEMENT":
-                exit(1)
+                exit("Expected 'END STATEMENT'.")
             return output + ";"
         elif word == "BEGIN":
             return output + " {\n" + build_scope(words)
@@ -189,20 +154,20 @@ def build_declaration(words):
         if words.pop(0) == "TYPE":
             vtype = words.pop(0)
         else:
-            exit(1)
+            exit("Expected 'TYPE'.")
         word = words.pop(0)
         output += "%s %s" % (vtype, vname)
         if word == "GETS":
             output += " = " + build_expression(words)
             if words.pop(0) != "END" or words.pop(0) != "STATEMENT":
-                exit(1);
+                exit("Expected 'END STATEMENT'.");
             return output + ";"
         elif word == "END":
             if words.pop(0) != "STATEMENT":
-                exit(1)
+                exit("Expected 'END STATEMENT'.")
             return output + ";"
     else:
-        exit(1)
+        exit("Expected 'FUNCTION' or 'VARIABLE'.")
 
 
 def build_scope(words):
