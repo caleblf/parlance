@@ -1,0 +1,9 @@
+IF true
+BEGIN
+
+
+END SCOPE
+ELSE IF false
+BEGIN
+
+END SCOPE
