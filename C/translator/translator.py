@@ -11,31 +11,31 @@
 from sys import argv, exit
 from os import path
 
-def build_call():
+def build_call(words):
     pass
 
-def build_variable():
+def build_variable(words):
     pass
 
-def build_return():
+def build_return(words):
     pass
 
-def build_cpp():
+def build_cpp(words):
     pass
 
-def build_if():
+def build_if(words):
     pass
 
-def build_else():
+def build_else(words):
     pass
 
-def build_loop():
+def build_loop(words):
     pass
 
-def build_end():
+def build_end(words):
     pass
 
-def build_declaration():
+def build_declaration(words):
     pass
 
 statements = {
@@ -46,9 +46,64 @@ statements = {
     "IF": build_if,
     "ELSE": build_else,
     "LOOP": build_loop,
-    "END": build_end, # Probably don't need this
     "DECLARE": build_declaration,
 }
+
+def build_else(words):
+    output = "else "
+    word = words.pop(0)
+
+    if word == "IF":
+        return output + build_if(words)
+    elif word == "BEGIN":
+        return output + "{\n" + build_scope(words)
+    else:
+        exit(1)
+
+def build_loop(words):
+    output = ""
+    word = ""
+    first = ""
+    condition = ""
+    cycle = ""
+    word = words.pop(0)
+    while (word != "BEGIN"):
+        if word == "FIRST":
+            first = build_expression(words)
+        elif word == "CONDITION":
+            condition = build_expression(words)
+        elif word == "CYCLE":
+            cycle = build_expression(words)
+        else:
+            exit(1)
+        word = words.pop(0)
+    output = "for ( %s; %s; %s ) {\n" % (first, condition, cycle) + build_scope(words)        
+
+def build_declaration(words):
+    output = ""
+    word = words.pop(0)
+    if word == "FUNCTION":
+        word = words.pop(0)
+        params = []
+        output += word
+        word = words.pop(0)
+        while (word != "BEGIN" and word != "END"):
+            if word == "PARAM":
+                pname = words.pop(0)
+                word = words.pop(0)
+                type_ = ""
+                if word == "TYPE":
+                    type_ = words.pop(0)
+                else:
+                    exit(1)
+                params.append(type_ + " " + pname)
+            else:
+                exit(1)
+        output += "(" + ",".join(params) + ")"
+        if word == "END":
+            return output + ";"
+        elif word == "BEGIN":
+            return output + " {\n" + build_scope(words)
 
 def build_call(words):
     """Builds a C function call"""
