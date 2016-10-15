@@ -85,7 +85,7 @@ def build_call(words):
     while True:
         if word == "ARG":
             args.append(build_expression(words))
-        elif word == "END":
+        elif word == "END" and words.pop(0) == "CALL":
             return output + ", ".join(args) + ")"
         else:
             exit(1)
@@ -104,7 +104,7 @@ def build_cpp(words):
     command = words.pop(0)
     if command == "DEFINE":
         output += "define " + words.pop(0) + "\n"
-    elif command == "INCLUDES":
+    elif command == "INCLUDE":
         output += "include " + words.pop(0) + "\n"
     elif command == "IFNDEF":
         output += "ifndef " + words.pop(0) + "\n"
@@ -247,7 +247,7 @@ operators = {
     "BITWISE NOT": "~",
     "MODULO": "%",
     "GETS": "=",
-    "AND": "+",
+    "AND": "&&",
     "EQUALS": "==",
     "LESSTHAN": "<"
 }
