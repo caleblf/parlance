@@ -49,6 +49,33 @@ statements = {
     "DECLARE": build_declaration,
 }
 
+def build_variable(words):
+    return words.pop(0)
+
+def build_return(words):
+    return "return " + build_expression(words) + ";"
+
+def build_cpp(words):
+    output = "#"
+    command = words.pop(0)
+    if (command == "DEFINE") {
+        output += "define " + words.pop(0)
+    } elif (command == "INCLUDES") {
+        output += "include " + words.pop(0)
+    } elif (command == "IFNDEF") {
+        output += "ifndef " + words.pop(0)
+    } elif (command == "ENDIF") {
+        output += "ifndef"
+    }
+    return output
+
+def build_if():
+    output = "if " + build_expression(words)
+    if words.pop(0) != "BEGIN":
+        exit(1)
+    else:
+        return output + "{\n" + build_scope(words)
+
 def build_else(words):
     output = "else "
     word = words.pop(0)
@@ -68,6 +95,7 @@ def build_loop(words):
     cycle = ""
     word = words.pop(0)
     while (word != "BEGIN"):
+        # Only want one of each, but don't check that (yet)
         if word == "FIRST":
             first = build_expression(words)
         elif word == "CONDITION":
@@ -77,15 +105,19 @@ def build_loop(words):
         else:
             exit(1)
         word = words.pop(0)
-    output = "for ( %s; %s; %s ) {\n" % (first, condition, cycle) + build_scope(words)        
+    output = "for (%s; %s; %s) {\n" % (first, condition, cycle) + build_scope(words)
 
 def build_declaration(words):
     output = ""
     word = words.pop(0)
     if word == "FUNCTION":
-        word = words.pop(0)
+        fname = words.pop(0)
+        ftype = ""
+        if words.pop(0) == "TYPE":
+            ftype = words.pop(0)
+        else:
+            exit(1)
         params = []
-        output += word
         word = words.pop(0)
         while (word != "BEGIN" and word != "END"):
             if word == "PARAM":
@@ -99,11 +131,28 @@ def build_declaration(words):
                 params.append(type_ + " " + pname)
             else:
                 exit(1)
-        output += "(" + ",".join(params) + ")"
+        output += "%s %s(%s)" % (ftype, fname, ",".join(params))
         if word == "END":
+            if words.pop(0) != "DECLARE":
+                exit(1)
             return output + ";"
         elif word == "BEGIN":
             return output + " {\n" + build_scope(words)
+    elif word == "VARIABLE":
+        vname = words.pop(0)
+        vtype = ""
+        if words.pop(0) == "TYPE":
+            vtype = words.pop(0)
+        else:
+            exit(1)
+        word = words.pop(0)
+        output += "%s %s" % (vtype, vname)
+        if word == "GETS":
+            return output + " = " + build_expression(words) + ";"
+        elif words == "END":
+            if words.pop(0) != "DECLARE":
+                exit(1)
+            return output + ";"
 
 def build_call(words):
     """Builds a C function call"""
@@ -120,10 +169,6 @@ def build_call(words):
             exit(1)
         word = words.pop(0)
     
-def scope(words):
-    output = ""
-    word = words.pop(0)
-            
 if len(argv) < 2:
     exit("Usage: " + argv[0] + " <filename>")
 
