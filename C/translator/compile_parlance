@@ -1,0 +1,4 @@
+#! /bin/bash 
+python ./translator.py $1 > out.c
+gcc out.c -o $2
+rm ./out.c
