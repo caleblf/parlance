@@ -52,7 +52,7 @@ statements = {}
 operators = {}
 
 def build_literal(words):
-    if words.pop(0) not in ("STRING", "INT"):
+    if words.pop(0) not in ("STRING", "INT", "INTEGER"):
         exit(1)
     literal = words.pop(0)
     if words.pop(0) != "END" or words.pop(0) != "LITERAL":
@@ -132,7 +132,6 @@ def build_else(words):
         exit(1)
 
 def build_loop(words):
-    output = ""
     word = ""
     first = ""
     condition = ""
@@ -149,7 +148,8 @@ def build_loop(words):
         else:
             exit(1)
         word = words.pop(0)
-    output = "for (%s; %s; %s) {\n" % (first, condition, cycle) + build_scope(words)
+    return "for (%s; %s; %s) {\n" % (first, condition, cycle) + build_scope(words)
+
 
 def build_declaration(words):
     output = ""
@@ -211,7 +211,6 @@ def build_scope(words):
     while command != "END":
         if command in statements:
             output += statements[command](words) + "\n"
-
         else:
             words.insert(0, command)
             output += build_expression(words)
