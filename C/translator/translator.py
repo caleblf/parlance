@@ -50,7 +50,7 @@ statements = {
     "DECLARE": build_declaration,
 }
 
-def call(words):
+def build_call(words):
     """Builds a C function call"""
     output = words.pop(0) + "("
     word = words.pop(0)
