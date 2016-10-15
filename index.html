@@ -1,69 +1,65 @@
 <!doctype html>
 <html>
 <head>
+<meta charset="utf-8"/>
 <title>Parlance Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
+<header>
+<h1>Parlance - Accessible Programming</h1>
+</header>
 
 <div id="content">
-<h1>Introduction</h1>
+<h2>Overview</h2>
 <p>
 The Parlance Language is an open-source, C-based language designed for accessibility. 
 The language is defined to be as close to natural language as possible, in order that 
 it can be easily recognized by speech-to-text applications. It uses an easy-to-learn, 
-natural language scheme focused on readability and ease of parsing. In its current form,
-Parlance is converted to standard ANSI C code by the C Preprocessor
+natural language scheme focused on readability and speakability. In its current form,
+Parlance is directly converted to standard ANSI C code, so users who know C can easily
+being using Parlance.
 </p>
-<h1>Current Features</h1>
-<ul id="features">
-
+<h2>Current Features</h2>
+<ul>
+	<li><code>dust</code></li>
 </ul>
-<h1>Comparison to C</h1>
+<h2>Comparison to C</h2>
 
-<div id="examples">
-<h2>C Code:</h2>
-<p>
-<pre>
-<code class="codeblock">#include &lt;stdio.h&gt;
+<h3>C Code:</h3>
+<p><pre><code class="code-block">#include <span class="c-literal">&lt;stdio.h&gt;</span>
 
-int main() 
+<span class="c-type">int</span> main() 
 {
-	printf(&quot;Hello, World!\n&quot;);
-	return 0;	
+	printf(</span "c-literal">&quot;Hello, World!\n&quot;</span>);
+	return <span class="c-literal">0</span>;	
 }
-</code>
-</pre>
-</p>
+</code></pre></p>
 
-<h2>Parlance Code:</h2>
-<p>
-<pre>
-<code class="codeblock">CPP INCLUDE &quot;&lt;stdio.h&gt;&quot;
+<h3>Equivalent Parlance Code:</h3>
+<p><pre><code class="code-block">CPP INCLUDE <span class="c-literal">&lt;stdio.h&gt;</span>
 
-DECLARE FUNCTION &quot;main&quot; TYPE &quot;int&quot;	
+DECLARE FUNCTION <span class="c-type">main</span> TYPE <span class="c-type">int</span>	
 BEGIN
-	CALL &quot;printf&quot;
-	PARAM LITERAL STRING &quot;Hello world!&quot; LITERAL END
-	CALL END
-SCOPE END
-</code>
-</pre>	
-</p>
-</div>
-<h1>Meet the Authors</h1>
-<h2>Caleb Lucas-Foley</h2>
+	STATEMENT CALL <span class="c-type">printf</span>
+		ARG LITERAL STRING <span class="c-literal">&quot;Hello world!\n&quot;</span> END LITERAL
+	END CALL
+	STATEMENT RETURN LITERAL INT <span class="c-literal">0</span> END LITERAL
+END SCOPE
+</code></pre></p>
+<h2>Meet the Authors</h2>
+<h3>Caleb Lucas-Foley</h3>
 <p class="bio">
 	Caleb is a dinosaur. 
 </p>
 
-<h2>Harrison Kaiser</h2>
+<h3>Harrison Kaiser</h3>
 <p class="bio">
 	Harrison is a meerkat. 
 </p>
 
-<h2>Chris Phifer</h2>
+<h3>Chris Phifer</h3>
 <p class="bio">
 	Chris is a hedgehog. 
 </p>

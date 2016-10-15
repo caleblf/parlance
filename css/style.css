@@ -1,21 +1,51 @@
 body {
-	background-color: #FFFCDC;
+	background-color: lightgrey;
+	padding: 0;
+	margin: 0;
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
+header {
+	width: 100%;
+	max-width: 720px;
+	margin: 15px auto;
+	background-color: white;
+	padding: 15px;
+	border-radius: 20px;
+	box-shadow: 0 0 5px dimgrey;
+	text-align: center;
+}
 
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 2px 2px grey;
+}
 
-.codeblock {
+.code-block {
 	display: inline-block;
-	background-color: LightGray;
-	padding: 15px 20px;
+	background-color: lightgrey;
+	padding: 15px;
 	border-radius: 5px;
-	margin: 0;
+	box-shadow: inset 0 0 5px blue;
+	margin-left: 0;
+	margin-right: 0;
 }
 
 #content {
 	width: 100%;
 	max-width: 720px;
-	margin: auto;
+	margin: 15px auto;
+	background-color: white;
+	padding: 15px;
+	border-radius: 20px;
+	box-shadow: 0 0 5px dimgrey;
+}
+
+.c-type {
+	color: indigo;
+}
+
+.c-literal {
+	color: green;
 }
 
 #features {
