@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
 <title>Parlance Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -25,9 +26,10 @@ begin using Parlance.
 <ul>
   <li>Turing complete</li>
   <li>Unambiguous formatting</li>
+  <li>Compiles directly to C code</li>
   <li>Easy to understand when read aloud</li>
-  <li>Easy to learn with a foundation in C-like languages</li>
-  <li>Potential for easy speech-to-text / text-to-speech integration</li>
+  <li>Easy to learn with a foundation in C or its relatives</li>
+  <li>Potential for easy speech-to-text and/or text-to-speech integration</li>
 </ul>
 <h2>Comparison to C</h2>
 
@@ -46,29 +48,33 @@ begin using Parlance.
 
 DECLARE FUNCTION <span class="c-type">main</span> TYPE <span class="c-type">int</span>	
 BEGIN
-	STATEMENT CALL <span class="c-type">printf</span>
+	CALL <span class="c-type">printf</span>
 		ARG LITERAL STRING <span class="c-literal">&quot;Hello world!\n&quot;</span> END LITERAL
-	END CALL
-	STATEMENT RETURN LITERAL INT <span class="c-literal">0</span> END LITERAL
+	END CALL END STATEMENT
+	RETURN LITERAL INT <span class="c-literal">0</span> END LITERAL END STATEMENT
 END SCOPE
+END
 </code></pre></p>
 <h2>Meet the Authors</h2>
 <h3>Caleb Lucas-Foley</h3>
 <p class="bio">
-	Caleb is a dinosaur. 
+  Caleb is a sophomore at Tufts University School of Engineering studying Computer Science and
+  mathematics. His interests include lo-w and high-level programming and design, especially
+  object-oriented programming. He enjoys pizza, pineapple, pineapple on pizza, and long walks as
+  far from the beach as possible.
 </p>
 
 <h3>Harrison Kaiser</h3>
 <p class="bio">
-	Harrison is a meerkat. 
+  Harrison is a meerkat. 
 </p>
 
 <h3>Chris Phifer</h3>
 <p class="bio">
-	Chris is a sophomore at Tufts University studying Computer Science in the school of engineering. 
-	They enjoy working with low-level systems, studying abstract mathematics and logic, and music. 
-	They are currently studying machine structure and Intel assembly programming, web development, 
-	linear algebra, and abstract algebra. 
+  Chris is a sophomore at Tufts University studying Computer Science in the school of engineering. 
+  They enjoy working with low-level systems, studying abstract mathematics and logic, and music. 
+  They are currently studying machine structure and Intel assembly programming, web development, 
+  linear algebra, and abstract algebra. 
 </p>
 </div>
 
