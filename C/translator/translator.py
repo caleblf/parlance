@@ -11,6 +11,45 @@
 from sys import argv, exit
 from os import path
 
+def build_call():
+    pass
+
+def build_variable():
+    pass
+
+def build_return():
+    pass
+
+def build_cpp():
+    pass
+
+def build_if():
+    pass
+
+def build_else():
+    pass
+
+def build_loop():
+    pass
+
+def build_end():
+    pass
+
+def build_declaration():
+    pass
+
+statements = {
+    "CALL": build_call,
+    "VARIABLE": build_variable,
+    "RETURN": build_return,
+    "CPP": build_cpp,
+    "IF": build_if,
+    "ELSE": build_else,
+    "LOOP": build_loop,
+    "END": build_end, # Probably don't need this
+    "DECLARE": build_declaration,
+}
+
 def call(words):
     """Builds a C function call"""
     output = words.pop(0) + "("
@@ -26,7 +65,9 @@ def call(words):
             exit(1)
         word = words.pop(0)
     
-            
+def scope(words):
+    output = ""
+    word = words.pop(0)
             
 if len(argv) < 2:
     exit("Usage: " + argv[0] + " <filename>")
@@ -36,3 +77,5 @@ if not path.exists(argv[1]):
 
 parlance_code = open(argv[1], 'r')
 code_words = parlance_code.read().split()
+
+
