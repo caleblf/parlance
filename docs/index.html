@@ -10,26 +10,32 @@
 <body>
 <header>
 <h1>Parlance - Accessible Programming</h1>
+<p>Readable. Speakable. Powerful.</p>
 </header>
 
 <div id="content">
+<h2>Purpose</h2>
+<p>Right now, there is a severe lack of truly accessible options for programmers with
+physical disabilities. If you can't type, you basically can't code--but we hope to
+change that.</p>
+<p>Modern and old-fashioned languages alike tend to be very symbol-heavy. Even languages
+that seem very close to natural language (like Python) often rely on strict formatting
+rules to function, which isn't feasible for people with screen readers, or anyone who
+operates computers with speech-recognition tools.</p>
 <h2>Overview</h2>
-<p>
-The Parlance Language is an open-source, C-based language designed for accessibility. 
-The language is defined to be as close to natural language as possible, in order that 
-it can be easily recognized by speech-to-text applications. It uses an easy-to-learn, 
-natural language scheme focused on readability and speakability. In its current form,
-Parlance is directly converted to standard ANSI C code, so users who know C can easily
-begin using Parlance.
-</p>
+<p>The Parlance language is an open-source, C-based language designed for accessibility. 
+Parlance's syntax is as close to natural language as possible, so that it can be easily
+recognized by speech-to-text applications. It uses an easy-to-learn set of dictionary
+words to build a true, powerful programming language focused on readability and
+speakability. Parlance is directly converted to standard ANSI C code, so users who know
+C can easily begin using Parlance.</p>
 <h2>Current Features</h2>
 <ul>
-  <li>Turing complete</li>
-  <li>Unambiguous formatting</li>
+  <li>Unambiguous syntax, not dependent on finnicky formatting</li>
   <li>Compiles directly to C code</li>
   <li>Easy to understand when read aloud</li>
-  <li>Easy to learn with a foundation in C or its relatives</li>
-  <li>Potential for easy speech-to-text and/or text-to-speech integration</li>
+  <li>Painless to learn with a foundation in C or its relatives</li>
+  <li>Potential for easy integration with speech-to-text and/or text-to-speech tools</li>
 </ul>
 <h2>Comparison to C</h2>
 
@@ -38,66 +44,66 @@ begin using Parlance.
 
 <span class="c-type">int</span> main() 
 {
-	printf(<span class="c-literal">&quot;Hello, World!\n&quot;</span>);
-	return <span class="c-literal">0</span>;	
+    printf(<span class="c-literal">&quot;Hello, World!\n&quot;</span>);
+    return <span class="c-literal">0</span>;
 }
 </code></pre></p>
 
 <h3>Equivalent Parlance Code:</h3>
 <p><pre><code class="code-block">CPP INCLUDE <span class="c-literal">&lt;stdio.h&gt;</span>
 
-DECLARE FUNCTION <span class="c-type">main</span> TYPE <span class="c-type">int</span>	
+DECLARE FUNCTION <span class="c-type">main</span> TYPE <span class="c-type">int</span>
 BEGIN
-	CALL <span class="c-type">printf</span>
-		ARG LITERAL STRING <span class="c-literal">&quot;Hello, World!\n&quot;</span> END LITERAL
-	END CALL END STATEMENT
-	RETURN LITERAL INT <span class="c-literal">0</span> END LITERAL END STATEMENT
+    CALL <span class="c-type">printf</span>
+        ARG LITERAL STRING <span class="c-literal">&quot;Hello, World!\n&quot;</span> END LITERAL
+    END CALL END STATEMENT
+    RETURN LITERAL INT <span class="c-literal">0</span> END LITERAL END STATEMENT
 END SCOPE
 END
 </code></pre></p>
 
-<h3> FizzBuzz in Parlance:</h3>
+<h2> FizzBuzz in Parlance:</h2>
 <p><pre><code class="code-block">CPP INCLUDE <span class="c-literal">&lt;stdio.h&gt;</span>
 
 DECLARE FUNCTION <span class="c-type">main</span> TYPE <span class="c-type">int</span>
 BEGIN
-DECLARE VARIABLE <span class="c-type">i</span> TYPE <span class="c-type">int</span> END STATEMENT 
-LOOP 
-	FIRST VARIABLE <span class="c-type">i</span> GETS LITERAL INT <span class="c-literal">1</span> END LITERAL
-	CONDITION VARIABLE <span class="c-type">i</span> LESSTHAN LITERAL INT <span class="c-literal">101</span> END LITERAL
-	CYCLE PREINCREMENT VARIABLE <span class="c-type">i</span>
-BEGIN
-	IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL AND 
-	   VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
-	BEGIN
-       	CALL <span class="c-type">printf</span> 
-       		ARG LITERAL STRING <span class="c-literal">"FizzBuzz"</span> END LITERAL 
-       	END CALL END STATEMENT
-	END SCOPE
+    DECLARE VARIABLE <span class="c-type">i</span> TYPE <span class="c-type">int</span> END STATEMENT 
+    LOOP 
+        FIRST VARIABLE <span class="c-type">i</span> GETS LITERAL INT <span class="c-literal">1</span> END LITERAL
+        CONDITION VARIABLE <span class="c-type">i</span> LESSTHAN LITERAL INT <span class="c-literal">101</span> END LITERAL
+        CYCLE PREINCREMENT VARIABLE <span class="c-type">i</span>
+    BEGIN
+        IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL AND 
+           VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
+        BEGIN
+            CALL <span class="c-type">printf</span> 
+                ARG LITERAL STRING <span class="c-literal">&quot;FizzBuzz&quot;</span> END LITERAL 
+            END CALL END STATEMENT
+        END SCOPE
 
-	ELSE IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
-	BEGIN
-       	CALL <span class="c-type">printf</span> 
-       		ARG LITERAL STRING <span class="c-literal">"Fizz"</span> END LITERAL 
-       	END CALL END STATEMENT
-	END SCOPE
+        ELSE IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">3</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
+        BEGIN
+            CALL <span class="c-type">printf</span> 
+                ARG LITERAL STRING <span class="c-literal">&quot;Fizz&quot;</span> END LITERAL 
+            END CALL END STATEMENT
+        END SCOPE
 
-	ELSE IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
-	BEGIN
-       	CALL <span class="c-type">printf</span> 
-       		ARG LITERAL STRING <span class="c-literal">"Buzz"</span> END LITERAL 
-       	END CALL END STATEMENT
-	END SCOPE
+        ELSE IF VARIABLE <span class="c-type">i</span> MODULO LITERAL INT <span class="c-literal">5</span> END LITERAL EQUALS LITERAL INT <span class="c-literal">0</span> END LITERAL
+        BEGIN
+            CALL <span class="c-type">printf</span> 
+                ARG LITERAL STRING <span class="c-literal">&quot;Buzz&quot;</span> END LITERAL 
+            END CALL END STATEMENT
+        END SCOPE
 
-	ELSE
-	BEGIN
-       	CALL <span class="c-type">printf</span> 
-       		ARG LITERAL STRING <span class="c-literal">"%d"</span> END LITERAL ARG VARIABLE <span class="c-type">i</span> 
-       	END CALL END STATEMENT
-	END SCOPE
+        ELSE
+        BEGIN
+            CALL <span class="c-type">printf</span> 
+                ARG LITERAL STRING <span class="c-literal">&quot;%d&quot;</span> END LITERAL ARG VARIABLE <span class="c-type">i</span> 
+            END CALL END STATEMENT
+        END SCOPE
 
-	CALL <span class="c-type">printf</span> ARG LITERAL STRING <span class="c-literal">"\n"</span> END LITERAL END CALL END STATEMENT
-END SCOPE
+        CALL <span class="c-type">printf</span> ARG LITERAL STRING <span class="c-literal">&quot;\n&quot;</span> END LITERAL END CALL END STATEMENT
+    END SCOPE
 
 END SCOPE
 
