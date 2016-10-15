@@ -53,7 +53,12 @@ def build_variable(words):
     return words.pop(0)
 
 def build_return(words):
-    return "return " + build_expression(words) + ";"
+    output = "return " + build_expression(words)
+    if words.pop(0) == "END" and words.pop(0) == "STATEMENT":
+        output += ";"
+    else:
+        exit(1)
+    return output
 
 def build_cpp(words):
     output = "#"
@@ -133,7 +138,7 @@ def build_declaration(words):
                 exit(1)
         output += "%s %s(%s)" % (ftype, fname, ",".join(params))
         if word == "END":
-            if words.pop(0) != "DECLARE":
+            if words.pop(0) != "STATEMENT":
                 exit(1)
             return output + ";"
         elif word == "BEGIN":
@@ -150,7 +155,7 @@ def build_declaration(words):
         if word == "GETS":
             return output + " = " + build_expression(words) + ";"
         elif words == "END":
-            if words.pop(0) != "DECLARE":
+            if words.pop(0) != "STATEMENT":
                 exit(1)
             return output + ";"
 
